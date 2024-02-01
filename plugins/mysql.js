@@ -4,10 +4,13 @@ const fp = require('fastify-plugin');
 
 module.exports = fp(async function (fastify, opts) {
   fastify.register(require('@fastify/mysql'), {
-    connectionString:
-      'mysql://root:root@localhost:3306/nyoba_nest?schema=public',
-
+    // connectionString: fastify.config.DB_URL,
     // promise: true,
+    host: fastify.config.DB_HOST,
+    user: fastify.config.DB_USER,
+    password: fastify.config.DB_PASS,
+    port: fastify.config.DB_PORT,
+    database: fastify.config.DB_NAME,
   });
-  fastify.log.info('Connected to local mysql');
+  // console.log(fastify.config.DB_URL);
 });
