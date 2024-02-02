@@ -8,7 +8,12 @@ const options = {};
 
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
-
+  fastify.register(require('@fastify/formbody'));
+  fastify.register(require('@fastify/cookie'), {
+    secret: 'my-secret', // for cookies signature
+    hook: 'onRequest', // set to false to disable cookie autoparsing or set autoparsing on any of the following hooks: 'onRequest', 'preParsing', 'preHandler', 'preValidation'. default: 'onRequest'
+    parseOptions: {}, // options for parsing cookies
+  });
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
@@ -23,7 +28,7 @@ module.exports = async function (fastify, opts) {
   // define your routes in one of these
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts),
+    options: Object.assign({ prefix: '/v1' }, opts),
   });
 };
 
