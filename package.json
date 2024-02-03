@@ -9,7 +9,9 @@
   "scripts": {
     "test": "tap \"test/**/*.test.js\"",
     "start": "fastify start -l info app.js",
-    "dev": "fastify start -w -l info -P app.js"
+    "dev": "fastify start -w -l info -P app.js",
+    "format": "prettier -w .",
+    "format:check": "prettier -c ."
   },
   "keywords": [],
   "author": "yogyy",
@@ -29,6 +31,7 @@
     "fastify-plugin": "^4.0.0"
   },
   "devDependencies": {
+    "prettier": "^3.2.4",
     "tap": "^16.1.0"
   }
 }
