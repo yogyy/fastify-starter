@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const fp = require('fastify-plugin');
+const fp = require("fastify-plugin");
 
 module.exports = fp(async function (fastify, opts) {
-  fastify.register(require('@fastify/mysql'), {
+  fastify.register(require("@fastify/mysql"), {
     // connectionString: fastify.config.DB_URL,
     // promise: true,
     host: fastify.config.DB_HOST,
@@ -12,5 +12,5 @@ module.exports = fp(async function (fastify, opts) {
     port: fastify.config.DB_PORT,
     database: fastify.config.DB_NAME,
   });
-  // console.log(fastify.config.DB_URL);
+  // fastify.log.info(fastify.config.DB_URL);
 });
