@@ -2,6 +2,7 @@
 
 const argon = require("argon2");
 
+/** @param {import('fastify').FastifyInstance & { mysql : import('mysql').Pool } } fastify */
 module.exports = async function (fastify, opts) {
   fastify.addHook("onRequest", async (request, reply) => {
     try {

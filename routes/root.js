@@ -1,5 +1,6 @@
 "use strict";
 
+/** @param {import('fastify').FastifyInstance} fastify */
 module.exports = async function (fastify, opts) {
   fastify.get("/", function (_, reply) {
     return reply.status(200).type("text/html").send(html);

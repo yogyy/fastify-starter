@@ -1,3 +1,4 @@
+/** @param {import('fastify').FastifyInstance} fastify */
 module.exports = async function (fastify, opts) {
   fastify.post("/", async function (req, res) {
     const { name, age } = req.body;

@@ -6,6 +6,7 @@ const AutoLoad = require("@fastify/autoload");
 // Pass --options via CLI arguments in command to enable these options.
 const options = {};
 
+/** @param {import('fastify').FastifyInstance} fastify */
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
   fastify.register(require("@fastify/formbody"));

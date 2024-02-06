@@ -3,6 +3,7 @@
 const argon = require("argon2");
 const { generateTokens, findUser } = require("../lib/utils");
 
+/** @param {import('fastify').FastifyInstance & { mysql : import('mysql').Pool } } fastify */
 module.exports = async function (fastify, opts) {
   fastify.post("/auth/signup", async (req, reply) => {
     const { email, password, firstName, lastName } = req.body;
@@ -19,9 +20,7 @@ module.exports = async function (fastify, opts) {
               message: "Email address already exists",
             });
           } else {
-            return reply
-              .status(500)
-              .send({ error: "Internal Server Error", message: err.message });
+            return reply.send(err);
           }
         } else {
           const user = await findUser(fastify.mysql, email);
@@ -36,7 +35,7 @@ module.exports = async function (fastify, opts) {
               sameSite: "none",
             })
             .status(201)
-            .send(user);
+            .send("Signup success");
         }
       },
     );
