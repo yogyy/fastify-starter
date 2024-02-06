@@ -7,9 +7,9 @@ test("example is loaded", async (t) => {
   const app = await build(t);
 
   const res = await app.inject({
-    url: "/example",
+    url: "/api/example",
   });
-  t.equal(res.payload, "this is an example");
+  t.equal(res.payload, JSON.stringify({ code: "this is an example" }));
 });
 
 // inject callback style:
