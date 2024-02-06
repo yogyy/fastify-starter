@@ -32,10 +32,6 @@ module.exports = async function (fastify, opts) {
     dir: path.join(__dirname, "routes"),
     options: Object.assign({ prefix: "/api" }, opts),
   });
-
-  fastify.get("/", function (req, reply) {
-    return reply.redirect("/api");
-  });
 };
 
 module.exports.options = options;
