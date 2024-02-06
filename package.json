@@ -26,6 +26,7 @@
     "@fastify/mysql": "^4.2.0",
     "@fastify/sensible": "^5.0.0",
     "argon2": "^0.31.2",
+    "dotenv": "^16.4.1",
     "fastify": "^4.0.0",
     "fastify-cli": "^5.9.0",
     "fastify-plugin": "^4.0.0"
