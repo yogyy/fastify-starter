@@ -2,7 +2,7 @@
 
 const fp = require("fastify-plugin");
 
-module.exports = fp(function (fastify, options, next) {
+module.exports = fp(async function (fastify, options) {
   const schema = {
     type: "object",
     required: [
@@ -50,6 +50,7 @@ module.exports = fp(function (fastify, options, next) {
       },
     },
   };
+
   const envOptions = {
     confKey: "config", // optional, default: 'config'
     schema: schema,
@@ -59,5 +60,4 @@ module.exports = fp(function (fastify, options, next) {
   fastify.register(require("@fastify/env"), envOptions).ready((err) => {
     if (err) console.error(err);
   });
-  next();
 });
