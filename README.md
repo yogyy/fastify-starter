@@ -31,6 +31,8 @@ For production mode
 
 ### `npm run test`
 
+Read [testing docs](https://node-tap.org/basics/)
+
 Run the test cases.
 
 ## Learn More
