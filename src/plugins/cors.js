@@ -1,9 +1,9 @@
 "use strict";
 
-const fp = require("fastify-plugin");
+import fp from "fastify-plugin";
 
-module.exports = fp(async function (fastify, opts) {
-  fastify.register(require("@fastify/cors"), (instance) => {
+export const cors = fp(async function (fastify, opts) {
+  fastify.register(import("@fastify/cors"), (instance) => {
     return (req, callback) => {
       const corsOptions = {
         // This is NOT recommended for production as it enables reflection exploits

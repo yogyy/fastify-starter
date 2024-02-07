@@ -1,11 +1,9 @@
-"use strict";
-
-const argon = require("argon2");
-const { generateTokens, findUser } = require("../lib/utils");
+import argon from "argon2";
+import { findUser, generateTokens } from "../lib/utils.js";
 
 /** @param {import('fastify').FastifyInstance & { mysql : import('mysql').Pool } } fastify */
-module.exports = async function (fastify, opts) {
-  fastify.post("/auth/signup", async (req, reply) => {
+export default async function authRoute(fastify, opts) {
+  fastify.post("/signup", async (req, reply) => {
     const { email, password, firstName, lastName } = req.body;
     const hashed = await argon.hash(password);
     fastify.mysql.query(
@@ -43,7 +41,7 @@ module.exports = async function (fastify, opts) {
     return reply;
   });
 
-  fastify.post("/auth/signin", async (req, reply) => {
+  fastify.post("/signin", async (req, reply) => {
     const { email, password } = req.body;
     if (!email || !password) {
       return reply.code(401).send({
@@ -71,4 +69,4 @@ module.exports = async function (fastify, opts) {
       .code(200)
       .send("Signin success");
   });
-};
+}

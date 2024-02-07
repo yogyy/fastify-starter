@@ -4,7 +4,7 @@
  * @param { string } email
  */
 
-const generateTokens = async (jwt, user) => {
+export const generateTokens = async (jwt, user) => {
   const accessToken = jwt.sign({
     sub: user.id,
     email: user.email,
@@ -32,7 +32,7 @@ const generateTokens = async (jwt, user) => {
  * @returns { Promise<User> }
  */
 
-const findUser = async (mysql, email) => {
+export const findUser = async (mysql, email) => {
   return new Promise((resolve, reject) => {
     mysql.query("SELECT * FROM users WHERE email = ?", [email], (err, res) => {
       if (err) {
@@ -45,5 +45,3 @@ const findUser = async (mysql, email) => {
     });
   });
 };
-
-module.exports = { generateTokens, findUser };

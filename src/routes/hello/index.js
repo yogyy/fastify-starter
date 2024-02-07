@@ -1,5 +1,5 @@
 /** @param {import('fastify').FastifyInstance} fastify */
-module.exports = async function (fastify, opts) {
+export default async function helloRoute(fastify, opts) {
   fastify.post("/", async function (req, res) {
     const { name, age } = req.body;
     res.send({ message: `test ${name}, umur ${age}` });
@@ -13,4 +13,4 @@ module.exports = async function (fastify, opts) {
   //   console.log(opts);
   //   res.send({ nama: `halo ${req.params.name}` });
   // });
-};
+}

@@ -1,7 +1,5 @@
-"use strict";
-
-module.exports = async function (fastify, opts) {
-  fastify.get("/", async function (req, reply) {
+export default async function ExampleRoute(fastify, opts) {
+  fastify.get("/", { prefixTrailingSlash: "/api/example" }, async function (req, reply) {
     reply.send({ code: "this is an example" });
   });
 
@@ -22,4 +20,4 @@ module.exports = async function (fastify, opts) {
       .code(200)
       .send("Cookie sent");
   });
-};
+}

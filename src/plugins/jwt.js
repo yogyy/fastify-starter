@@ -1,10 +1,10 @@
 "use strict";
 
-const fp = require("fastify-plugin");
+import fp from "fastify-plugin";
 
-module.exports = fp(async function (fastify, opts) {
-  fastify.register(require("@fastify/jwt"), {
-    secret: fastify.config.JWT_SECRET,
+export const jwt = fp(async function (fastify, opts) {
+  fastify.register(import("@fastify/jwt"), {
+    secret: process.env.JWT_SECRET,
     sign: {
       expiresIn: "10m",
       iss: "127.0.0.1:3000",
