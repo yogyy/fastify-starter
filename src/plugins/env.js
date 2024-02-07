@@ -18,7 +18,7 @@ export const env = fp(async function (fastify, options) {
     properties: {
       DB_URL: {
         type: "string",
-        default: "0.0.0.0",
+        default: "",
       },
       DB_HOST: {
         type: "string",

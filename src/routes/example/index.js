@@ -11,7 +11,6 @@ export default async function ExampleRoute(fastify, opts) {
 
     reply
       .setCookie("token", token, {
-        domain: "your.domain",
         path: "/",
         secure: true, // send cookie over HTTPS only
         httpOnly: true,

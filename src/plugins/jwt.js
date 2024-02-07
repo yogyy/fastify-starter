@@ -7,7 +7,6 @@ export const jwt = fp(async function (fastify, opts) {
     secret: process.env.JWT_SECRET,
     sign: {
       expiresIn: "10m",
-      iss: "127.0.0.1:3000",
     },
   });
 
