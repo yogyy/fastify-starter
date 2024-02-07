@@ -2,23 +2,63 @@
 
 This project was bootstrapped with Fastify-CLI.
 
-## Available Scripts
+### Route
 
-```js
-const connection = await fastify.mysql.getConnection(); // <== using this when promise is true in '/plugins/mysql.js'
-const [rows, fields] = await connection.query(
-  `SELECT * FROM users where id=${req.params.id}`,
-);
+#### POST /api/auth/signup
 
-if (!rows[0]) {
-  return { error: "User not found" };
+```json
+{
+  "email": "test@mail.to",
+  "password": "123",
+  "firstName": "tester",
+  "lastName": "?" // optional
 }
-
-connection.release();
-return rows[0];
 ```
 
-In the project directory, you can run:
+#### POST /api/auth/signin
+
+```json
+{ "email": "test@mail.to", "password": "123" }
+```
+
+#### GET /api/users/details , /api/users/:id
+
+```js
+/**
+ * Require Authorization in headers.
+ *
+ * Usage:
+ * - Include 'Authorization' in headers.
+ * - Use 'Bearer [token]' as the value for the Authorization header.
+ * - Obtain the token after signup or signin.
+ *
+ * GET /api/users/details
+ * - Retrieve details of the authenticated user.
+ * - Authorization token must be included in headers.
+ *
+ * GET /api/users/:id
+ * - Retrieve details of a specific user by ID.
+ * - Requires user ID as a parameter in the URL.
+ * - Authorization token must be included in headers.
+ */
+```
+
+### Route
+
+#### basic route
+
+```js
+/**
+ * GET /api
+ * GET /api/ping
+ * GET /api/hello
+ * - { name, age } in body
+ * GET /api/hello/:id
+ * - { id } in params
+ * /
+```
+
+## Available Scripts
 
 ### `npm run dev`
 
