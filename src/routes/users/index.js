@@ -1,9 +1,7 @@
-"use strict";
-
-const argon = require("argon2");
+import argon from "argon2";
 
 /** @param {import('fastify').FastifyInstance & { mysql : import('mysql').Pool } } fastify */
-module.exports = async function (fastify, opts) {
+export default async function usersRoute(fastify, opts) {
   fastify.addHook("onRequest", async (request, reply) => {
     try {
       await request.jwtVerify();
@@ -12,7 +10,7 @@ module.exports = async function (fastify, opts) {
     }
   });
 
-  fastify.get("/", { onRequest: [fastify.authenticate] }, async (req, reply) => {
+  fastify.get("/", async (req, reply) => {
     if (req.query.id) {
       fastify.mysql.query(
         `SELECT * FROM users where id = ?`,
@@ -35,7 +33,7 @@ module.exports = async function (fastify, opts) {
     return reply;
   });
 
-  fastify.get("/details", { onRequest: [fastify.authenticate] }, async (req, reply) => {
+  fastify.get("/details", async (req, reply) => {
     fastify.mysql.query(
       `SELECT * from users WHERE id =${req.user.sub}`,
       async function (err, res) {
@@ -50,7 +48,7 @@ module.exports = async function (fastify, opts) {
     return reply;
   });
 
-  fastify.delete("/", { onRequest: [fastify.authenticate] }, async (req, reply) => {
+  fastify.delete("/", async (req, reply) => {
     // const { email } = req.body;
     fastify.mysql.query(
       `DELETE FROM users WHERE email = '${req.user.email}'`,
@@ -69,7 +67,7 @@ module.exports = async function (fastify, opts) {
     return reply;
   });
 
-  fastify.patch("/", { onRequest: [fastify.authenticate] }, async (req, reply) => {
+  fastify.patch("/", async (req, reply) => {
     const { ...updateFields } = req.body;
 
     if (updateFields.hasOwnProperty("hash")) {
@@ -100,4 +98,4 @@ module.exports = async function (fastify, opts) {
 
     return reply;
   });
-};
+}

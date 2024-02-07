@@ -1,8 +1,8 @@
 "use strict";
 
-const fp = require("fastify-plugin");
+import fp from "fastify-plugin";
 
-module.exports = fp(async function (fastify, options) {
+export const env = fp(async function (fastify, options) {
   const schema = {
     type: "object",
     required: [
@@ -57,7 +57,7 @@ module.exports = fp(async function (fastify, options) {
     data: process.env, // optional, default: process.env
   };
 
-  fastify.register(require("@fastify/env"), envOptions).ready((err) => {
+  fastify.register(import("@fastify/env"), envOptions).ready((err) => {
     if (err) console.error(err);
   });
 });

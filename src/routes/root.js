@@ -1,15 +1,13 @@
-"use strict";
-
 /** @param {import('fastify').FastifyInstance} fastify */
-module.exports = async function (fastify, opts) {
-  fastify.get("/", function (_, reply) {
+export default async function RootRoute(fastify, opts) {
+  fastify.get("/", { prefixTrailingSlash: "/api" }, function (_, reply) {
     return reply.status(200).type("text/html").send(html);
   });
 
   fastify.get("/ping", async (_, reply) => {
     return reply.status(200).send("pong");
   });
-};
+}
 
 const html = `
 <!DOCTYPE html>

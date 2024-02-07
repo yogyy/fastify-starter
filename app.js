@@ -1,41 +1,36 @@
-"use strict";
-
-const path = require("node:path");
-const AutoLoad = require("@fastify/autoload");
-
-// Pass --options via CLI arguments in command to enable these options.
-const options = {};
+import fastifyCookie from "@fastify/cookie";
+import fastifyFormbody from "@fastify/formbody";
+import { jwt } from "./src/plugins/jwt.js";
+import { cors } from "./src/plugins/cors.js";
+import { env } from "./src/plugins/env.js";
+import { mysql } from "./src/plugins/mysql.js";
+import { sensible } from "./src/plugins/sensible.js";
+import { support } from "./src/plugins/support.js";
 
 /** @param {import('fastify').FastifyInstance} fastify */
-module.exports = async function (fastify, opts) {
-  // Place here your custom code!
-  fastify.register(require("@fastify/formbody"));
-
-  fastify.register(require("@fastify/cookie"), {
-    secret: process.env.COOKIE_SECRET, // for cookies signature
-    hook: "onRequest", // set to false to disable cookie autoparsing or set autoparsing on any of the following hooks: 'onRequest', 'preParsing', 'preHandler', 'preValidation'. default: 'onRequest'
-    parseOptions: {}, // options for parsing cookies
-  });
-  // Do not touch the following lines
-
-  // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
-  // through your application
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, "/src/plugins"),
-    options: Object.assign({}, opts),
-  });
-
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, "/src/routes"),
-    options: Object.assign({ prefix: "/api" }, opts),
-  });
-
-  fastify.get("/", function (req, reply) {
+export default async function (fastify, opts) {
+  fastify.get("/", function (_, reply) {
     return reply.redirect("/api");
   });
-};
 
-module.exports.options = options;
+  fastify.register(fastifyFormbody);
+
+  fastify.register(fastifyCookie, {
+    secret: process.env.COOKIE_SECRET,
+    hook: "onRequest",
+    parseOptions: {},
+    forceESM: true,
+  });
+  fastify.register(jwt);
+  fastify.register(cors);
+  fastify.register(env);
+  fastify.register(mysql);
+  fastify.register(sensible);
+  fastify.register(support);
+
+  fastify.register(import("./src/routes/root.js"), { prefix: "/api" });
+  fastify.register(import("./src/routes/example/index.js"), { prefix: "/api/example" });
+  fastify.register(import("./src/routes/hello/index.js"), { prefix: "/api/hello" });
+  fastify.register(import("./src/routes/users/index.js"), { prefix: "/api/users" });
+  fastify.register(import("./src/routes/auth.js"), { prefix: "/api/auth" });
+}
