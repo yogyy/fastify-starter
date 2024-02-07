@@ -7,7 +7,7 @@ export default async function authRoute(fastify, opts) {
     const { email, password, firstName, lastName } = req.body;
     const hashed = await argon.hash(password);
     fastify.mysql.query(
-      `INSERT INTO users (email, hash, firstName, lastName) VALUES (?, ?, ?, ?)`,
+      `INSERT INTO fastify_users (email, hash, firstName, lastName) VALUES (?, ?, ?, ?)`,
       [email, hashed, firstName, lastName],
       async (err, result) => {
         if (err) {
@@ -26,7 +26,6 @@ export default async function authRoute(fastify, opts) {
           delete user.hash;
           reply
             .setCookie("token", accessToken, {
-              domain: "127.0.0.1",
               path: "/",
               secure: true,
               httpOnly: true,
@@ -60,7 +59,6 @@ export default async function authRoute(fastify, opts) {
     }
     return reply
       .setCookie("token", accessToken, {
-        domain: "127.0.0.1",
         path: "/",
         secure: true,
         httpOnly: true,

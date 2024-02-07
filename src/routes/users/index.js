@@ -13,7 +13,7 @@ export default async function usersRoute(fastify, opts) {
   fastify.get("/", async (req, reply) => {
     if (req.query.id) {
       fastify.mysql.query(
-        `SELECT * FROM users where id = ?`,
+        `SELECT * FROM fastify_users where id = ?`,
         [req.query.id],
         function (err, res) {
           if (err) {
@@ -35,7 +35,7 @@ export default async function usersRoute(fastify, opts) {
 
   fastify.get("/details", async (req, reply) => {
     fastify.mysql.query(
-      `SELECT * from users WHERE id =${req.user.sub}`,
+      `SELECT * from fastify_users WHERE id =${req.user.sub}`,
       async function (err, res) {
         if (err) {
           reply.send(err);
@@ -51,7 +51,7 @@ export default async function usersRoute(fastify, opts) {
   fastify.delete("/", async (req, reply) => {
     // const { email } = req.body;
     fastify.mysql.query(
-      `DELETE FROM users WHERE email = '${req.user.email}'`,
+      `DELETE FROM fastify_users WHERE email = '${req.user.email}'`,
       function (err, res) {
         if (err) {
           return reply.send(err);
@@ -85,7 +85,7 @@ export default async function usersRoute(fastify, opts) {
     console.log(updateValues);
 
     fastify.mysql.query(
-      `UPDATE users SET ${updateValues} WHERE id = ?`,
+      `UPDATE fastify_users SET ${updateValues} WHERE id = ?`,
       [req.user.sub],
       function (err, res) {
         if (err) {

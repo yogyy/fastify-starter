@@ -34,7 +34,7 @@ export const generateTokens = async (jwt, user) => {
 
 export const findUser = async (mysql, email) => {
   return new Promise((resolve, reject) => {
-    mysql.query("SELECT * FROM users WHERE email = ?", [email], (err, res) => {
+    mysql.query("SELECT * FROM fastify_users WHERE email = ?", [email], (err, res) => {
       if (err) {
         reject(reply.send(err));
       } else if (!res[0]) {
