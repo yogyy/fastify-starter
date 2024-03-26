@@ -2,7 +2,19 @@
 
 This project was bootstrapped with Fastify-CLI.
 
-### Route
+## Create Table
+
+```bash
+CREATE TABLE fastify_users (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    createdAt DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    email VARCHAR(191) NOT NULL UNIQUE,
+    hash VARCHAR(191) NOT NULL,
+    firstName VARCHAR(191),
+    lastName VARCHAR(191)
+);
+```
 
 #### POST /api/auth/signup
 
