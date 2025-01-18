@@ -1,10 +1,12 @@
+/** @typedef { import('@fastify/jwt').JWT } JWT */
+
 /**
- * @typedef { import('@fastify/jwt').JWT } JWT
  * @param { JWT } jwt
- * @param { string } email
+ * @param { User } user
+ * @returns {string} The access token.
  */
 
-export const generateTokens = async (jwt, user) => {
+export const generateTokens = (jwt, user) => {
   const accessToken = jwt.sign({
     sub: user.id,
     email: user.email,

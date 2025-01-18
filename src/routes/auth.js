@@ -48,7 +48,7 @@ export default async function authRoute(fastify, opts) {
       });
     }
     const user = await findUser(fastify.mysql, email);
-    const { accessToken } = await generateTokens(fastify.jwt, user);
+    const { accessToken } = generateTokens(fastify.jwt, user);
     const matchPassword = await argon.verify(user.hash, password);
     console.log("password match ??", matchPassword);
 
